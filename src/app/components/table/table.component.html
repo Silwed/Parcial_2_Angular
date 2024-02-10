@@ -1,0 +1,73 @@
+<mat-card class="example-card">
+  <mat-card-header>
+
+    <mat-card-title>Tabla Productos</mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-actions class="example-button-row" align="end" [ngStyle]="{'padding':'10px 16px'}">
+    <button  mat-raised-button  color="warn" (click)="pdfMake()">Pdf</button>
+    <button  mat-raised-button color="primary" (click)="addProducto()">Nuevo</button>
+
+  </mat-card-actions>
+
+  <mat-card-content>
+    <div class="mat-elevation-z8">
+      <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+       <!-- Id Column -->
+       <ng-container matColumnDef="codigoProducto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+        <td mat-cell *matCellDef="let row"><img  src="{{row.foto}}" style="width:64px; height: 64px;" alt=""></td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+      </ng-container>
+
+<!-- Precio Column -->
+<ng-container matColumnDef="precio">
+<th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+<td mat-cell *matCellDef="let row">$ {{row.precio}}</td>
+</ng-container>
+
+ <!-- Tipo Column -->
+<ng-container matColumnDef="tipo">
+<th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+<td mat-cell *matCellDef="let row">{{row.tipo | tipobebida}} </td>
+</ng-container>
+
+<ng-container matColumnDef="acciones">
+<th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+<td mat-cell *matCellDef="let row">
+
+  <button mat-mini-fab color="accent" aria-label="Example icon button with a bookmark icon" (click)="editProducto(row.codigoProducto)" >
+  <mat-icon>create</mat-icon></button>
+
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"(click)="deleteProducto(row.codigoProducto)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</td>
+
+</ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginator
+
+          [pageIndex]="0"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+          aria-label="Select page">
+      </mat-paginator>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
+
+
+
+

@@ -1,0 +1,47 @@
+<form [formGroup]="myform" (ngSubmit)="Saveuser()">
+  <h1 mat-dialog-title>{{inputdata.title}}</h1>
+  <div mat-dialog-content>
+     <mat-form-field>
+      <mat-label>Nombre Producto</mat-label>
+      <input type="text" formControlName="nombre"  matInput>
+     </mat-form-field>
+     <div *ngIf="nombre?.errors?.['required'] && nombre?.touched">
+      <span [ngStyle]="{color:'tomato', 'font-size': '12'}">El campo Nombre es obligatorio</span>
+      </div>
+
+
+     <mat-form-field>
+      <mat-label>Precio</mat-label>
+      <input type="number" matInput formControlName="precio">
+     </mat-form-field>
+     <div *ngIf="precio?.errors?.['required'] && precio?.touched">
+      <span [ngStyle]="{color:'tomato','font-size': '12'}">El campo Precio es obligatorio</span>
+      </div>
+
+      <mat-form-field>
+      <mat-label>Tipo</mat-label>
+      <select matNativeControl formControlName="tipo" required>
+        <option value="1">Alcoholico</option>
+        <option value="2">No Alcoholico</option>
+
+      </select>
+     </mat-form-field>
+     <div *ngIf="tipo?.errors?.['required'] && tipo?.touched">
+      <span [ngStyle]="{color:'tomato', 'font-size': '8'}">Es necesario selecionar un tipo</span>
+      </div>
+
+      <div>
+        <input type="file" #fileInput hidden formControlName="foto"  (change)="onFileSelected($event)">
+        <mat-form-field>
+          <input matInput [placeholder]="selectedFileName"  disabled>
+        </mat-form-field>
+        <button mat-raised-button (click)="fileInput.click()">Select File</button>
+      </div>
+
+  </div>
+  <div mat-dialog-actions align="end">
+      <button mat-raised-button type="submit" color="primary">Save</button>
+    <a (click)="closepopup()" mat-raised-button color="warn">Close</a>
+    <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
+  </div>
+  </form>
